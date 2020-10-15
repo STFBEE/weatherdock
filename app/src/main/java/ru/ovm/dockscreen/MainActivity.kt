@@ -16,18 +16,17 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var timeTimer: Timer
-    lateinit var weatherTimer: Timer
+    private lateinit var timeTimer: Timer
+    private lateinit var weatherTimer: Timer
 
-    lateinit var api: Api
+    private lateinit var api: Api
 
-    val scope = MainScope()
-
+    private val scope = MainScope()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
 
         api = Retrofit.Builder()
@@ -64,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             }, 0, 1000)
         }
 
-        timeTimer = Timer().apply {
+        weatherTimer = Timer().apply {
             scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
                     getWeather()
@@ -76,6 +75,7 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         timeTimer.cancel()
+        weatherTimer.cancel()
     }
 
     override fun onDestroy() {
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateTime() = runOnUiThread {
-        val currentDateTimeString = SimpleDateFormat("hh:mm", Locale.getDefault()).format(Date())
+        val currentDateTimeString = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
         time_text.text = currentDateTimeString
     }
 
