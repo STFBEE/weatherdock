@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Dock Weather</string>
+    <string name="real_temp">(на самом деле %d°)</string>
+    <string name="temp">%s, %d°</string>
+</resources>
